@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T'as-pas l'apéro? - Livraison de tapas et boissons à domicile</title>
+    <style>
+        :root {
+            --primary: #f0b039;
+            --secondary: #8b3e2f;
+            --accent: #5a7247;
+            --light: #fff9e3;
+            --dark: #33220f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        header {
+            background-color: var(--primary);
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo img {
+            width: 80px;
+            height: 80px;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            /* color: var(--secondary); */
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: var(--dark);
+        }
+        
+        .hero {
+            height: 80vh;
+            margin-top: 80px;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            z-index: 2;
+        }
+        
+        .hero h2 {
+            font-size: 3.5rem;
+            /*color: var(--secondary);*/
+            max-width: 700px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            color: var(--dark);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .button {
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        
+        .primary-button {
+            background-color: var(--secondary);
+            color: white;
+            border: 2px solid var(--secondary);
+        }
+        
+        .primary-button:hover {
+            background-color: transparent;
+            color: var(--secondary);
+        }
+        
+        .secondary-button {
+            background-color: transparent;
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+        }
+        
+        .secondary-button:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.2;
+        }
+        
+        .box-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+        }
+        
+        .box-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .box-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .box-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .box-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .box-content {
+            padding: 1.5rem;
+        }
+        
+        .box-title {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .box-description {
+            margin-bottom: 1rem;
+            color: var(--dark);
+            line-height: 1.5;
+        }
+        
+        .box-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .features-section {
+            background-color: var(--primary);
+            padding: 5rem 2rem;
+        }
+        
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .features-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 3rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+        
+        .feature-description {
+            color: var(--dark);
+            line-height: 1.5;
+        }
+        
+        .testimonials-section {
+            padding: 5rem 2rem;
+            background-color: var(--light);
+        }
+        
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .author-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .author-name {
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        .author-title {
+            font-size: 0.9rem;
+            color: var(--dark);
+            opacity: 0.8;
+        }
+        
+        .cta-section {
+            background-color: var(--secondary);
+            padding: 5rem 2rem;
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-description {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.5;
+        }
+        
+        .cta-button {
+            background-color: var(--primary);
+            color: var(--secondary);
+            font-weight: 700;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--primary);
+        }
+        
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            color: var(--primary);
+        }
+        
+        .footer-description {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary);
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        .footer-contact-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: flex-start;
+        }
+        
+        .contact-icon {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .hero {
+                height: auto;
+                padding: 4rem 2rem;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .box-grid, .features-grid, .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="C:\Users\Scuola\OneDrive - HESSO\Bureau\Site Tapas\Logo Tapas.png" alt="T'as-pas l'apéro?">
+                <h1>T'as-pas l'apéro?</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="#">Nos Box</a></li>
+                    <li><a href="#">Comment ça marche</a></li>
+                    <li><a href="#">À propos</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Livraison de tapas et boissons à domicile</h2>
+            <p>Recevez vos apéritifs préférés directement chez vous en quelques clics. Des tapas authentiques et des boissons sélectionnées pour vos moments conviviaux.</p>
+            <div class="hero-buttons">
+                <a href="#" class="button primary-button">Découvrir nos box</a>
+                <a href="#" class="button secondary-button">Comment ça marche</a>
+            </div>
+        </div>
+        <img src="C:\Users\Scuola\OneDrive - HESSO\Bureau\Site Tapas\ChatGPT Image May 1, 2025, 05_34_20 PM.png" alt="Apéritif" class="hero-bg">
+    </section>
+
+    <section class="box-section">
+        <h2 class="section-title">Nos Box</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem; color: var(--dark);">
+            Découvrez nos sélections soigneusement préparées pour vos moments conviviaux. 
+            Chaque box contient une variété de tapas et des boissons assorties.
+        </p>
+        <div class="box-grid">
+            <div class="box-card">
+                <img src="C:\Users\Scuola\OneDrive - HESSO\Bureau\Site Tapas\Box classique.png" alt="Box Classique" class="box-image">
+                <div class="box-content">
+                    <h3 class="box-title">Box Classique</h3>
+                    <p class="box-description">Notre sélection de tapas traditionnelles avec une bouteille de vin rouge espagnol.</p>
+                    <span class="box-price">29,90 CHF</span>
+                    <a href="#" class="button primary-button">Commander</a>
+                </div>
+            </div>
+            <div class="box-card">
+                <img src="C:\Users\Scuola\OneDrive - HESSO\Bureau\Site Tapas\Box med.png" alt="Box Méditerranéenne" class="box-image">
+                <div class="box-content">
+                    <h3 class="box-title">Box Méditerranéenne</h3>
+                    <p class="box-description">Assortiment de tapas méditerranéennes accompagné d'une bouteille de rosé provençal.</p>
+                    <span class="box-price">34,90 CHF</span>
+                    <a href="#" class="button primary-button">Commander</a>
+                </div>
+            </div>
+            <div class="box-card">
+                <img src="C:\Users\Scuola\OneDrive - HESSO\Bureau\Site Tapas\Box valais.png" alt="Box Valaisanne" class="box-image">
+                <div class="box-content">
+                    <h3 class="box-title">Box Gourmet</h3>
+                    <p class="box-description">Nos tapas premium avec des produits valaisans.</p>
+                    <span class="box-price">39,90 CHF</span>
+                    <a href="#" class="button primary-button">Commander</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="features-container">
+            <h2 class="features-title">Pourquoi nous choisir?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3 class="feature-title">Livraison rapide</h3>
+                    <p class="feature-description">Livraison en moins de 45 minutes dans votre zone de livraison.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3 class="feature-title">Produits frais</h3>
+                    <p class="feature-description">Tous nos tapas sont préparés le jour même avec des ingrédients de qualité.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-wine-bottle"></i>
+                    </div>
+                    <h3 class="feature-title">Boissons sélectionnées</h3>
+                    <p class="feature-description">Notre sommelier choisit les meilleures boissons pour accompagner vos tapas.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <h3 class="feature-title">Emballages écologiques</h3>
+                    <p class="feature-description">Tous nos emballages sont recyclables ou biodégradables.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="testimonials-container">
+            <h2 class="section-title">Ce que nos clients disent</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Service impeccable ! Les tapas étaient délicieuses et la livraison très rapide. Le vin qui accompagnait notre box était parfait. Je recommande vivement !"</p>
+                    <div class="testimonial-author">
+                        <!-- <img src="/api/placeholder/100/100" alt="Sophie L." class="author-image"> -->
+                        <div>
+                            <div class="author-name">Sophie L.</div>
+                            <div class="author-title">Paris</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Parfait pour nos soirées entre amis ! La box méditerranéenne est notre préférée. Qualité au rendez-vous à chaque commande."</p>
+                    <div class="testimonial-author">
+                        <!-- <img src="/api/placeholder/100/100" alt="Marc T." class="author-image"> -->
+                        <div>
+                            <div class="author-name">Marc T.</div>
+                            <div class="author-title">Lyon</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"J'ai commandé la box gourmet pour l'anniversaire de ma compagne, elle a adoré ! Les tapas étaient exquises et le champagne excellent."</p>
+                    <div class="testimonial-author">
+                        <!-- <img src="/api/placeholder/100/100" alt="Jean D." class="author-image"> -->
+                        <div>
+                            <div class="author-name">Jean D.</div>
+                            <div class="author-title">Bordeaux</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2 class="cta-title">Prêt à commander ?</h2>
+            <p class="cta-description">Commandez dès maintenant et recevez votre box de tapas et boissons en moins d'une heure.</p>
+            <a href="#" class="cta-button">Commander maintenant</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div>
+                <span class="footer-logo">T'as-pas l'apéro?</span>
+                <p class="footer-description">Livraison de tapas et boissons à domicile. Faites-vous plaisir avec nos box spécialement conçues pour vos moments conviviaux.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div>
+                <h3 class="footer-title">Liens rapides</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="#">Nos Box</a></li>
+                    <li><a href="#">Comment ça marche</a></li>
+                    <li><a href="#">À propos</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="footer-title">Légal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Conditions générales</a></li>
+                    <li><a href="#">Politique de confidentialité</a></li>
+                    <li><a href="#">Mentions légales</a></li>
+                    <li><a href="#">Livraison et retours</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="footer-title">Contact</h3>
+                <div class="footer-contact-item">
+                    <span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span>
+                    <span>123 Rue de l'Apéro, 75001 Paris</span>
+                </div>
+                <div class="footer-contact-item">
+                    <span class="contact-icon"><i class="fas fa-phone"></i></span>
+                    <span>+33 1 23 45 67 89</span>
+                </div>
+                <div class="footer-contact-item">
+                    <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+                    <span>contact@taspaslapero.fr</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 T'as-pas l'apéro? Tous droits réservés.</p>
+        </div>
+    </footer>
+</body>
+</html>
